@@ -1,0 +1,203 @@
+Propostas de site:
+    ☐ Site de filmes/séries/animes @started(20-05-04 17:22)
+        Site para ver filmes/séries
+        Pagina inicial com slider, lista de filmes/séries em destaque
+        Pagina dedicada a cada secção (filmes/séries)
+        Possibilidade de busca, com filtros
+        Sistema de registo/login
+        Adicionar filmes favoritos
+        Marcar episódios vistos
+        Adicionar/remover filmes/séries
+        Editar conteudos
+        Notificações de novos episódios/filmes
+        Player incorporado
+        Divisao por temporadas
+        Comentarios
+
+    ☐ Site de entrega de comida @started(20-05-04 17:44)
+        ... por pensar
+
+    ☐ Site de compras @started(20-05-04 17:44)
+        ... por pensar
+
+
+Processo de criação do trabalho prático de AI2:
+
+    Backend:
+        ☐ Instalação:
+            • npm init -y
+                Inicializa package.json com tudo a default
+            
+            • Instalar as dependencias
+                npm i <dependencias>
+                    ☐ Express:
+                        
+                    ☐ Cors:
+                    ☐ Morgan:
+                        Loga todos os requests ao nosso server, na consola
+                    ☐ Helmet:
+                    ✔ Nodemon: @done(20-05-02 21:19)
+                        Evitar ter de dar restar no backend cada vez que fazemos alterações
+            • Criar a pasta src
+            • Criar o ficheiro src/index.js
+                Este ficheiro vai ser onde a APP express vai ser criada
+                Aqui dentro cria-se a estrutura de uma app express default.
+                    const express = require('express')
+                    const app = express()
+                    const port = process.env.PORT || 1337
+                    app.listen(port, () => console.log("Inciando servidor em localhost:"+port) )
+
+            • Alterei os scripts dentro do package.json
+                "start": "node src/index.js",
+                "dev": "nodemon src/index.js"
+                start - inicializar node normal
+                dev - inicializar com o nodemon
+            
+            Neste momento o servidor ja deve estar a correr no localhost ao usar o comando npm run dev
+
+            • Vamos adicionar as middlewares
+                - começando pela "morgan"
+                    const morgan = require("morgan")
+                    app.use(morgan('common'))
+
+                    vai gerar um log, na consola de todos os requests feitos ao site.
+                    usa-se o parametro common para que o formato do output seja o padrao.
+                
+                - depois helmet
+                    const helmet = require("helmet")
+
+                    vai alterar os headers dos nossos requets de forma a torná-los mais seguros.
+
+                - cors
+                    Vai filtrar quem pode aceder ao nosso backend
+                        const cors = require("cors")
+
+                        app.use(cors({
+                            origin: "http://localhost:3000"
+                        }))
+                    neste caso, apenas quem venha do localhost:3000 vai ser aceite.
+                
+                - compression
+                    ☐ Ver o que faz e se vale a pena usar @started(20-05-04 10:25)
+
+
+            • Criar rota básica "/"
+                    app.get("/", (req, res) => res.json({
+                        mensagem: "Boas"
+                    }))
+
+            • Criar um handler para erros
+                Deve ser sempre a ultima coisa a ser adicionada, se um request chegar aqui, quer dizer que esse request não foi encontrado em todo o programa.
+
+                app.use((req, res, next) => {
+                    const error = new Error("Não encontrado ")
+                    res.status(404)
+                    next(error)
+                })
+
+                Aqui está a ser criado um novo Erro e a ser definido um status para a resposta. Utilizando o next(error), vai levar o error para o handler do erro em si
+                É preciso que esta middleware tenha 4 argumentos, de outro modo, algo vai dar errado.
+                Quando usamos next é porque queremos que o request passe para a proxima middleware, sem ele o request n deve passar da middleware em que se encontra.
+
+                app.use((error, req, res, next) => {
+                    const statusCode = res.statusCode === 200 ? 500 : res.statusCode
+                    res.status(statusCode)
+                    res.json({
+                        mensagem: error.message,
+                        stack: error.stack
+                    })
+                })
+
+                Aqui em vez dos 3 parametros usuais, temos o error, que vai trazer o error de cima. Se o statusCode for 404, ele vai ficar 404, senao, se for 200 ele vai dar 500.
+                De seguida é definido o statusCode para a resposta do request e o seu conteudo (em json), que vai ser composto pela mensagem de erro e pelo stack (que mostra o caminho do erro).
+                Este stack deve ser mostrado apenas quando estamos em desenvolvimento.
+                ☐ Entender como é definido o StatusCode @started(20-05-04 09:30)
+
+            • Neste ponto, a estrutura básica do projeto j+a está criada.
+
+
+            StatusCode:
+                404 - não encontrado
+                200 - OK
+                500 - Internel server error
+
+        ✔ Colocar middlewares separadas do index.js @started(20-05-04 10:35) @done(20-05-04 10:35) @lasted(20s)
+            Cria-se um ficheiro middlewares.js na pasta src
+                Coloca-se o codigo referentes ás middlewares aqui dentro, e exporta-se com o module.exports = {}
+                    module.exports = {
+                        notFound,
+                        errorHandler
+                    }
+            Com isto, basta importar o ficheiro middlewares.js dentro do index.js e chamar as devidas funções dentro do app.use()
+                app.use(middlewares.notFound)
+                app.use(middlewares.errorHandler)
+
+        ☐ Criação de esquemas e conexão á base de dados @started(20-05-04 10:37)
+            Base de dados a usar
+                Vai-se usar postgres como base de dados e sequelize para fazer a ligação, desde o server á base de dados. Para instalar o sequelize usa-se o comando 
+                    npm install sequelize
+                e para instalar o gerenciador de conexao pg
+                    npm install pg
+
+            Ligação á base de dados
+                O ficheiro responsável pela ligação á base de dados será o index.js
+                A estrutura básica do ficheiro é a seguinte
+                    var Sequelize = require('sequelize')
+                    var db = {}
+                    const sequelize = new Sequelize(
+                        'nomeBaseDados', 'user', 'password', { host: 'localhost', port: '5432', dialect: 'postgres' }
+                    )
+                    db.sequelize = sequelize
+                    db.Sequelize = Sequelize
+                    module.exports = db
+
+                ☐ Ver o porque de exportarmos sequelize e Sequelize, quais as diferenças entre eles @started(20-05-04 12:02)
+
+            Criação de esquemas
+                Os esquemas vao ficar dentro de uma pasta models (dentro da pasta src)
+                Os esquemas vao ser as tabelas da nossa base de dados
+                Para criar um esquema, usa-se o nome da tabela como nome do ficheiro, entao, por exemplo se quero criar um esquema para os filmes, o nome do ficheiro deve ser filmes.js
+                Para que as tabelas sejam criadas, usamos a função sync() do sequelize, que vai fazer com que seja verificado se as tabelas já estão criadas, ou se são preciso serem criadas.
+
+            Criação das rotas
+                A organização das notas, atualmente (20-05-04 20:49) é feita da seguinte maneira
+                    uma middleware geral é colocada no index.js principal
+                        const filmes = require("./routes/filmesroutes")
+                        app.use("/api/filmes", filmes)
+                    essa middlware vai ser um conjunto de rodas criadas dentro do ficheiro correspondente dentro da pasta "routes". (no exemplo o caminho /api/filmes vai para o conjunto de rodas definidas em filmesroutes).
+                    Dentro de cada roda, vai existir uma função get ou POST, que vai redirecionar para o controlador especifico de rota.
+                        const filmescontroller = require("../controllers/filmescontrollers")
+                        router.get('/', filmescontroller.home)
+                    No exemplo acima, a rota "/" vai para o controlador filmes, para a função home, onde entao será retornado o JSON correspondente ao pedido.
+
+
+    Frontend:
+        O frontend vai ser React.
+
+        ☐ Instalação @started(20-05-04 21:52)
+            npx create-react-app <nomeApp>
+
+        ☐ Instalação de bibliotecas adicionais @started(20-05-06 18:33)
+            npm install jquery popper.js
+                como o popper.js estava desatualizado, instalei a versão v2 (@popperjs/Core)
+                o popperjs permite criar tooltips num elemento.
+                docs popperjs: https://popper.js.org/docs/
+
+            npm install bootstrap
+                docs bootstrap: https://getbootstrap.com/docs/4.1/getting-started/introduction/
+
+    
+    Javascript:
+        ☐ Melhor maneira de converter string para inteiro @started(20-05-04 20:39)
+            Existem 4 maneiras fáceis de o fazer, sendo elas
+                Number(x);
+                parseInt(x, 10);
+                parseFloat(x);
+                +x;
+            Todas são suficientemente rápidas, mas as funções parseInt e parseFloat, são cerca de 50% mais rápidas do que usando o prefixo + e 7% mais rápidas que a Number(). De qualquer maneira, a velocidade com que cada uma faz a conversão é suficientemente rápida em qualquer um dos casos.
+
+    Pesquisa:
+        ☐ Alterar nodemon para as devDependencies @started(20-05-02 21:21)
+            Ver se me devo preocupar com este tipo de coisa.
+
+
