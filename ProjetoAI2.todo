@@ -1,5 +1,5 @@
 Propostas de site:
-    ☐ Site de filmes/séries/animes @started(20-05-04 17:22)
+    ✘ Site de filmes/séries/animes @started(20-05-04 17:22) @cancelled(20-05-11 23:09) @wasted(1w5h47m40s)
         Site para ver filmes/séries
         Pagina inicial com slider, lista de filmes/séries em destaque
         Pagina dedicada a cada secção (filmes/séries)
@@ -14,11 +14,24 @@ Propostas de site:
         Divisao por temporadas
         Comentarios
 
-    ☐ Site de entrega de comida @started(20-05-04 17:44)
+    ✘ Site de entrega de comida @started(20-05-04 17:44) @cancelled(20-05-11 23:09) @wasted(1w5h25m38s)
         ... por pensar
 
-    ☐ Site de compras @started(20-05-04 17:44)
+    ✘ Site de compras @started(20-05-04 17:44) @cancelled(20-05-11 23:09) @wasted(1w5h25m36s)
         ... por pensar
+
+    ☐ Site de ler livros online @started(20-05-10 03:07)
+        Site simples de leitura
+        Pagina principal com algumas secções tais como
+            Barra navegação
+            Destaques (Recentemente adicionados/populares)
+            Estatisticas gerais do site
+            Footer
+            Ideias de colocar um livro e escritor do dia/semana/mes
+        Dentro de uma página de uma categoria vai ter todos os livros dessa categoria, com possibilidade de filtro.
+        Páginas de autores
+        Páginas de editoras
+        
 
 
 Processo de criação do trabalho prático de AI2:
@@ -170,6 +183,19 @@ Processo de criação do trabalho prático de AI2:
                         router.get('/', filmescontroller.home)
                     No exemplo acima, a rota "/" vai para o controlador filmes, para a função home, onde entao será retornado o JSON correspondente ao pedido.
 
+        ☐ Problemas a usar nodemon e express depois de ?reinicar computador? @started(20-05-11 23:15)
+            Por alguma razao, tanto o nodemon como o express não estavam instalados, tive de reinstalar o nodemon globalmente com o comando 
+                npm install -g nodemon
+            e o express com o comando
+                npm install --save express
+
+            ☐ Verificar se este problema aconteceu no futuro @started(20-05-11 23:16)
+
+        API:
+            ☐ Criar API para listar todos os livros disponiveis na base de dados @started(20-05-11 23:16)
+            ☐ Criar API para listar apenas um livro, através de um ID, passado por parametro @started(20-05-11 23:17)
+            ☐ Criar API para listar todos os livros de uma certa categoria @started(20-05-11 23:17)
+            ☐ Criar API para listar todos os livros pertencentes a uma ou mais categorias @started(20-05-11 23:18)
 
     Frontend:
         O frontend vai ser React.
@@ -200,4 +226,12 @@ Processo de criação do trabalho prático de AI2:
         ☐ Alterar nodemon para as devDependencies @started(20-05-02 21:21)
             Ver se me devo preocupar com este tipo de coisa.
 
+
+    Conclusões diárias:
+        ☐ 11 Maio @started(20-05-12 00:18)
+            Fiz grande parte da base da base de dados
+                Modelo conceputal feito
+                Modelo fisico feito
+                Gerado o script SQL para sqlServer
+                
 
