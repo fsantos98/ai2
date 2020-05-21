@@ -214,7 +214,7 @@ Processo de criação do trabalho prático de AI2:
 
     
     Javascript:
-        ☐ Melhor maneira de converter string para inteiro @started(20-05-04 20:39)
+        ✔ Melhor maneira de converter string para inteiro @started(20-05-04 20:39) @done(20-05-12 01:10) @lasted(1w4h31m48s)
             Existem 4 maneiras fáceis de o fazer, sendo elas
                 Number(x);
                 parseInt(x, 10);
@@ -228,10 +228,41 @@ Processo de criação do trabalho prático de AI2:
 
 
     Conclusões diárias:
-        ☐ 11 Maio @started(20-05-12 00:18)
+        ✔ 11 Maio @started(20-05-12 00:18) @done(20-05-12 01:09) @lasted(51m30s)
             Fiz grande parte da base da base de dados
                 Modelo conceputal feito
                 Modelo fisico feito
                 Gerado o script SQL para sqlServer
-                
+            
+            Para amanha devo tentar colocar tudo em sequelize.
+                Acabei por fazer isto hoje, transformei o script dado pelo powerdesigner (SQL SERVER) para MYSQL, usando um convertor online (http://www.sqlines.com/online).
+                Com isto, com o wampserver criei uma base de dados em MYSQL e através de um programa (https://github.com/andyforever/sequelizer) fiz a conversao de todos os ficheiros para postgres.\\\\\\\\\\
 
+        ☐ 12 Maio @started(20-05-12 01:09)
+            ✔ Trocar de filmes para livros @started(20-05-17 13:20) @done(20-05-19 11:49) @lasted(1d22h29m17s)
+            ☐ Verificar as foreign keys dos ficheiros criados, o que preciso ou não adicionar @started(20-05-12 01:09)
+            ☐ Criar dados para preencher o banco de dados @started(20-05-12 01:09)
+            ☐ Inicializar o backend com todas as tabelas criadas @started(20-05-12 01:10)
+            ☐ Começar a criar a API @started(20-05-12 01:10)
+                ☐ Ver API com autenticação @started(20-05-12 01:10)
+
+        ☐ 21 Maio @started(20-05-21 21:31)
+            Dia 21, quase 10 dias depois, nao fiz nada xD
+            
+            Resto da noite de hoje vai ser para tentar fazer a página inicial do site.
+            Tentar pelo menos criar navbar e um menu simples.
+            ✘ Ver a estrutura de pastas de outras apps dadas pelo stor @started(20-05-21 21:32) @cancelled(20-05-21 21:40) @wasted(8m22s)
+                Estrutura do stor
+                    src/view
+                    src/public
+            ✘ Ver a estrutura de pastas usadas por outros developers @started(20-05-21 21:32) @cancelled(20-05-21 21:40) @wasted(8m23s)
+            ✔ Estrutura final @started(20-05-21 21:40) @done(20-05-21 21:43) @lasted(3m37s)
+                Uma pesquisa muito rápida mostrou-me que a estrutura das pastas não é a coisa mais importante, apenas devo começar a fazer código e ir mantendo as coisas todas organizadas.
+                Mas como base devo adotar uma estrutura do tipo
+                    src/views - pasta para todas as páginas da app
+                    src/components - pasta para todos os componentes react (com subspastas para cada categoria)
+                    src/graphic - pasta para todas as imagens
+                    src/css - pasta para todos os css
+            ✔ Criar a estrutura de pastas necessárias @started(20-05-21 21:32) @done(20-05-21 21:43) @lasted(11m43s)
+            ☐ Criar navbar @started(20-05-21 21:33)
+            ☐ Criar menu lateral simples @started(20-05-21 21:33)

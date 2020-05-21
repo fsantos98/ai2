@@ -5,7 +5,7 @@ const cors = require("cors")
 
 const middlewares = require("./middlewares")
 // rotas
-const filmes = require("./routes/filmesroutes")
+const livros = require("./routes/livrosroutes")
 
 
 const app = express()
@@ -22,7 +22,7 @@ app.get("/", (req, res) => res.json({
     mensagem: "Hello 🙉"
 }))
 
-app.use("/api/filmes", filmes) 
+app.use("/api/livros", livros) 
 
 app.use(middlewares.notFound)
 app.use(middlewares.errorHandler)
